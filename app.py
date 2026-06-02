@@ -1,5 +1,4 @@
-# Recouvr SaaS - v1.1
-from flask import Flask, render_template, request, redirect, url_for, session
+# Recouvr SaaS - v1.2
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
@@ -20,7 +19,12 @@ def onboarding():
 def dashboard():
     if not session.get("email"):
         return redirect(url_for("onboarding"))
-    return render_template("dashboard.html", session=session)
+    user = {
+        "name":    session.get("name", "Utilisateur"),
+        "company": session.get("company", "Mon Entreprise"),
+        "email":   session.get("email", "")
+    }
+    return render_template("dashboard.html", user=user)
 
 @app.route("/admin")
 def admin():

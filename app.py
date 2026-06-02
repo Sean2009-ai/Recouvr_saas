@@ -1,9 +1,10 @@
+# Recouvr SaaS - v1.1
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 app.secret_key = "recouvr-secret-2024"
 
-# ── INSCRIPTION ──────────────────────────────────
 @app.route("/", methods=["GET", "POST"])
 def onboarding():
     if session.get("email"):
@@ -15,24 +16,16 @@ def onboarding():
         return redirect(url_for("dashboard"))
     return render_template("onboarding.html")
 
-# ── DASHBOARD CLIENT ─────────────────────────────
 @app.route("/dashboard")
 def dashboard():
     if not session.get("email"):
         return redirect(url_for("onboarding"))
-    user = {
-        "name":    session.get("name", "Utilisateur"),
-        "company": session.get("company", "Mon Entreprise"),
-        "email":   session.get("email", "")
-    }
-    return render_template("dashboard.html", user=user)
+    return render_template("dashboard.html", session=session)
 
-# ── DASHBOARD ADMIN ──────────────────────────────
 @app.route("/admin")
 def admin():
     return render_template("admin.html")
 
-# ── DÉCONNEXION ──────────────────────────────────
 @app.route("/logout")
 def logout():
     session.clear()
@@ -40,4 +33,3 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    

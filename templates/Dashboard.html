@@ -7,8 +7,6 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #07080A; font-family: 'Segoe UI', sans-serif; color: #E8E2D4; min-height: 100vh; }
-
-    /* TOPBAR */
     .topbar {
       background: #0D0F13; border-bottom: 1px solid #1E2330;
       padding: 14px 28px; display: flex; justify-content: space-between; align-items: center;
@@ -28,60 +26,29 @@
       background: #1E2330; border: none; color: #9A9080;
       border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 12px; font-weight: 600;
     }
-    .btn-logout:hover { color: #E8E2D4; }
-
-    /* MAIN */
     .main { padding: 32px 28px; max-width: 1000px; margin: 0 auto; }
     .page-title { font-size: 22px; font-weight: 900; color: #EDB96A; margin-bottom: 4px; }
     .page-sub   { color: #9A9080; font-size: 13px; margin-bottom: 28px; }
-
-    /* KPIS */
     .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
-    .kpi {
-      background: #12151B; border: 1px solid #1E2330; border-radius: 14px; padding: 20px;
-    }
+    .kpi { background: #12151B; border: 1px solid #1E2330; border-radius: 14px; padding: 20px; }
     .kpi .icon { font-size: 22px; margin-bottom: 10px; }
     .kpi .val  { font-size: 22px; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 4px; }
     .kpi .lbl  { color: #9A9080; font-size: 12px; font-weight: 600; }
-
-    /* FACTURES */
-    .section-title {
-      font-size: 14px; font-weight: 700; color: #E8E2D4; margin-bottom: 14px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
+    .section-title { font-size: 14px; font-weight: 700; color: #E8E2D4; margin-bottom: 14px; display: flex; justify-content: space-between; }
     .invoices { background: #12151B; border: 1px solid #1E2330; border-radius: 14px; overflow: hidden; }
-    .inv-head {
-      display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr;
-      padding: 12px 20px; border-bottom: 1px solid #1E2330; background: #0D0F13;
-    }
+    .inv-head { display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr; padding: 12px 20px; border-bottom: 1px solid #1E2330; background: #0D0F13; }
     .inv-head span { color: #5A5448; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
-    .inv-row {
-      display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr;
-      padding: 15px 20px; border-bottom: 1px solid #1E2330;
-      align-items: center; transition: background 0.15s;
-    }
+    .inv-row { display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr; padding: 15px 20px; border-bottom: 1px solid #1E2330; align-items: center; transition: background 0.15s; }
     .inv-row:last-child { border-bottom: none; }
     .inv-row:hover { background: #1A1D24; }
     .inv-client { font-weight: 600; font-size: 13px; }
     .inv-amount { font-weight: 700; color: #EDB96A; font-size: 13px; }
     .inv-date   { color: #9A9080; font-size: 12px; }
-    .badge {
-      display: inline-block; padding: 4px 10px; border-radius: 20px;
-      font-size: 11px; font-weight: 700;
-    }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
     .badge.overdue  { background: rgba(224,80,74,0.15);  color: #E0504A; }
     .badge.pending  { background: rgba(224,144,48,0.15); color: #E09030; }
     .badge.upcoming { background: rgba(74,124,245,0.15); color: #4A7CF5; }
     .badge.paid     { background: rgba(40,196,122,0.15); color: #28C47A; }
-
-    /* RELANCE BTN */
-    .btn-relance {
-      padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(138,92,245,0.4);
-      background: rgba(138,92,245,0.12); color: #8A5CF5;
-      font-size: 11px; font-weight: 700; cursor: pointer;
-    }
-    .btn-relance:hover { background: rgba(138,92,245,0.25); }
-
     @media (max-width: 600px) {
       .kpis { grid-template-columns: 1fr; }
       .inv-head, .inv-row { grid-template-columns: 2fr 1fr 1fr; }
@@ -91,27 +58,23 @@
   </style>
 </head>
 <body>
-
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="logo">
       <div class="logo-icon">R</div>
       <div class="logo-name">Recouvr</div>
     </div>
     <div class="topbar-right">
-      <div class="welcome">Bonjour, <strong>{{ user.name }}</strong> · {{ user.company }}</div>
+      <div class="welcome">Bonjour, <strong>{{ session.get('name', 'Utilisateur') }}</strong> · {{ session.get('company', 'Mon Entreprise') }}</div>
       <a href="/logout" style="text-decoration:none;">
         <button class="btn-logout">Déconnexion</button>
       </a>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
     <div class="page-title">Tableau de bord</div>
-    <div class="page-sub">Bienvenue {{ user.name }} — voici l'état de vos recouvrements</div>
+    <div class="page-sub">Bienvenue {{ session.get('name', 'Utilisateur') }} — voici l'état de vos recouvrements</div>
 
-    <!-- KPIs -->
     <div class="kpis">
       <div class="kpi">
         <div class="icon">📋</div>
@@ -130,7 +93,6 @@
       </div>
     </div>
 
-    <!-- FACTURES -->
     <div class="section-title">
       <span>Factures en cours</span>
       <span style="color:#9A9080; font-size:12px;">6 factures</span>
@@ -180,7 +142,5 @@
       </div>
     </div>
   </div>
-
 </body>
 </html>
-EOF

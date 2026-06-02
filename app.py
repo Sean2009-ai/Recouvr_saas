@@ -9,9 +9,9 @@ def onboarding():
     if session.get("email"):
         return redirect(url_for("dashboard"))
     if request.method == "POST":
-        session["company"] = request.form.get("company")
-        session["name"]    = request.form.get("name")
-        session["email"]   = request.form.get("email")
+        session["company"] = request.form.get("company", "")
+        session["name"]    = request.form.get("name", "")
+        session["email"]   = request.form.get("email", "")
         return redirect(url_for("dashboard"))
     return render_template("onboarding.html")
 
@@ -20,7 +20,12 @@ def onboarding():
 def dashboard():
     if not session.get("email"):
         return redirect(url_for("onboarding"))
-    return render_template("dashboard.html", user=session)
+    user = {
+        "name":    session.get("name", "Utilisateur"),
+        "company": session.get("company", "Mon Entreprise"),
+        "email":   session.get("email", "")
+    }
+    return render_template("dashboard.html", user=user)
 
 # ── DASHBOARD ADMIN ──────────────────────────────
 @app.route("/admin")
@@ -35,3 +40,4 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    

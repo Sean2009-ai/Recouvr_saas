@@ -23,25 +23,13 @@
     .kpi .icon { font-size: 22px; margin-bottom: 10px; }
     .kpi .val { font-size: 22px; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 4px; }
     .kpi .lbl { color: #9A9080; font-size: 12px; font-weight: 600; }
-    .section-title { font-size: 14px; font-weight: 700; color: #E8E2D4; margin-bottom: 14px; display: flex; justify-content: space-between; }
-    .invoices { background: #12151B; border: 1px solid #1E2330; border-radius: 14px; overflow: hidden; }
-    .inv-head { display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr; padding: 12px 20px; border-bottom: 1px solid #1E2330; background: #0D0F13; }
-    .inv-head span { color: #5A5448; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
-    .inv-row { display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr; padding: 15px 20px; border-bottom: 1px solid #1E2330; align-items: center; transition: background 0.15s; }
-    .inv-row:last-child { border-bottom: none; }
-    .inv-row:hover { background: #1A1D24; }
-    .inv-client { font-weight: 600; font-size: 13px; }
-    .inv-amount { font-weight: 700; color: #EDB96A; font-size: 13px; }
-    .inv-date { color: #9A9080; font-size: 12px; }
-    .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-    .badge.overdue  { background: rgba(224,80,74,0.15);  color: #E0504A; }
-    .badge.pending  { background: rgba(224,144,48,0.15); color: #E09030; }
-    .badge.upcoming { background: rgba(74,124,245,0.15); color: #4A7CF5; }
-    .badge.paid     { background: rgba(40,196,122,0.15); color: #28C47A; }
+    .empty-state { background: #12151B; border: 1px dashed #2C3347; border-radius: 14px; padding: 60px 20px; text-align: center; }
+    .empty-icon { font-size: 40px; margin-bottom: 16px; }
+    .empty-title { color: #E8E2D4; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .empty-sub { color: #9A9080; font-size: 13px; line-height: 1.6; }
+    .btn-add { display: inline-block; margin-top: 20px; padding: 11px 24px; border-radius: 10px; border: none; background: linear-gradient(135deg, #C9963A, #E09030); color: #000; font-weight: 800; font-size: 13px; cursor: pointer; text-decoration: none; }
     @media (max-width: 600px) {
       .kpis { grid-template-columns: 1fr; }
-      .inv-head, .inv-row { grid-template-columns: 2fr 1fr 1fr; }
-      .inv-head span:nth-child(2), .inv-row .inv-date { display: none; }
       .main { padding: 20px 16px; }
     }
   </style>
@@ -67,65 +55,26 @@
     <div class="kpis">
       <div class="kpi">
         <div class="icon">📋</div>
-        <div class="val" style="color:#C9963A;">19 450 000 FCFA</div>
+        <div class="val" style="color:#C9963A;">0 FCFA</div>
         <div class="lbl">Encours total</div>
       </div>
       <div class="kpi">
         <div class="icon">⚠️</div>
-        <div class="val" style="color:#E0504A;">7 600 000 FCFA</div>
+        <div class="val" style="color:#E0504A;">0 FCFA</div>
         <div class="lbl">En retard</div>
       </div>
       <div class="kpi">
         <div class="icon">✅</div>
-        <div class="val" style="color:#28C47A;">950 000 FCFA</div>
+        <div class="val" style="color:#28C47A;">0 FCFA</div>
         <div class="lbl">Collecté ce mois</div>
       </div>
     </div>
 
-    <div class="section-title">
-      <span>Factures en cours</span>
-      <span style="color:#9A9080; font-size:12px;">6 factures</span>
-    </div>
-    <div class="invoices">
-      <div class="inv-head">
-        <span>Client</span><span>Échéance</span><span>Montant</span><span>Statut</span>
-      </div>
-      <div class="inv-row">
-        <div class="inv-client">Groupe Bolloré CI</div>
-        <div class="inv-date">2024-05-15</div>
-        <div class="inv-amount">4 500 000 FCFA</div>
-        <span class="badge overdue">11j retard</span>
-      </div>
-      <div class="inv-row">
-        <div class="inv-client">CFAO Motors Dakar</div>
-        <div class="inv-date">2024-05-22</div>
-        <div class="inv-amount">1 800 000 FCFA</div>
-        <span class="badge pending">En attente</span>
-      </div>
-      <div class="inv-row">
-        <div class="inv-client">MTN Business Ghana</div>
-        <div class="inv-date">2024-05-28</div>
-        <div class="inv-amount">7 200 000 FCFA</div>
-        <span class="badge upcoming">À venir</span>
-      </div>
-      <div class="inv-row">
-        <div class="inv-client">Ecobank Togo</div>
-        <div class="inv-date">2024-04-30</div>
-        <div class="inv-amount">950 000 FCFA</div>
-        <span class="badge paid">Payé ✓</span>
-      </div>
-      <div class="inv-row">
-        <div class="inv-client">Orange Business Mali</div>
-        <div class="inv-date">2024-05-10</div>
-        <div class="inv-amount">3 100 000 FCFA</div>
-        <span class="badge overdue">16j retard</span>
-      </div>
-      <div class="inv-row">
-        <div class="inv-client">Air Côte d'Ivoire</div>
-        <div class="inv-date">2024-06-01</div>
-        <div class="inv-amount">2 250 000 FCFA</div>
-        <span class="badge upcoming">À venir</span>
-      </div>
+    <div class="empty-state">
+      <div class="empty-icon">📄</div>
+      <div class="empty-title">Aucune facture pour le moment</div>
+      <div class="empty-sub">Ajoutez votre première facture pour commencer<br>à suivre vos recouvrements.</div>
+      <a href="#" class="btn-add">+ Ajouter une facture</a>
     </div>
   </div>
 </body>

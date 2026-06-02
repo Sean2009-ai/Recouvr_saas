@@ -7,75 +7,193 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #07080A; font-family: 'Segoe UI', sans-serif; color: #E8E2D4; min-height: 100vh; }
-    .topbar { background: #0D0F13; border-bottom: 1px solid #1E2330; padding: 14px 28px; display: flex; justify-content: space-between; align-items: center; }
+    .topbar { background: #0D0F13; border-bottom: 1px solid #1E2330; padding: 14px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .logo { display: flex; align-items: center; gap: 10px; }
     .logo-icon { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, #C9963A, #E09030); display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 16px; }
     .logo-name { font-size: 16px; font-weight: 800; color: #EDB96A; }
-    .topbar-right { display: flex; align-items: center; gap: 14px; }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
     .welcome { color: #9A9080; font-size: 13px; }
     .welcome strong { color: #EDB96A; }
     .btn-logout { background: #1E2330; border: none; color: #9A9080; border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 12px; font-weight: 600; }
-    .main { padding: 32px 28px; max-width: 1000px; margin: 0 auto; }
-    .page-title { font-size: 22px; font-weight: 900; color: #EDB96A; margin-bottom: 4px; }
-    .page-sub { color: #9A9080; font-size: 13px; margin-bottom: 28px; }
-    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
-    .kpi { background: #12151B; border: 1px solid #1E2330; border-radius: 14px; padding: 20px; }
-    .kpi .icon { font-size: 22px; margin-bottom: 10px; }
-    .kpi .val { font-size: 22px; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 4px; }
-    .kpi .lbl { color: #9A9080; font-size: 12px; font-weight: 600; }
-    .empty-state { background: #12151B; border: 1px dashed #2C3347; border-radius: 14px; padding: 60px 20px; text-align: center; }
-    .empty-icon { font-size: 40px; margin-bottom: 16px; }
-    .empty-title { color: #E8E2D4; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-    .empty-sub { color: #9A9080; font-size: 13px; line-height: 1.6; }
-    .btn-add { display: inline-block; margin-top: 20px; padding: 11px 24px; border-radius: 10px; border: none; background: linear-gradient(135deg, #C9963A, #E09030); color: #000; font-weight: 800; font-size: 13px; cursor: pointer; text-decoration: none; }
-    @media (max-width: 600px) {
+    .main { padding: 28px; max-width: 1000px; margin: 0 auto; }
+    .page-title { font-size: 20px; font-weight: 900; color: #EDB96A; margin-bottom: 4px; }
+    .page-sub { color: #9A9080; font-size: 13px; margin-bottom: 24px; }
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+    .kpi { background: #12151B; border: 1px solid #1E2330; border-radius: 13px; padding: 18px; }
+    .kpi .icon { font-size: 20px; margin-bottom: 8px; }
+    .kpi .val { font-size: 20px; font-weight: 900; margin-bottom: 3px; }
+    .kpi .lbl { color: #9A9080; font-size: 11px; font-weight: 600; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .card { background: #12151B; border: 1px solid #1E2330; border-radius: 13px; overflow: hidden; }
+    .card-head { padding: 14px 18px; border-bottom: 1px solid #1E2330; display: flex; justify-content: space-between; align-items: center; }
+    .card-head span { font-weight: 700; font-size: 13px; }
+    .btn-primary { padding: 7px 14px; border-radius: 8px; border: none; background: linear-gradient(135deg, #C9963A, #E09030); color: #000; font-weight: 700; font-size: 12px; cursor: pointer; }
+    .form-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+    label { color: #9A9080; font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; }
+    input, select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1.5px solid #1E2330; background: #0D0F13; color: #E8E2D4; font-size: 13px; outline: none; }
+    input:focus, select:focus { border-color: #C9963A; }
+    select option { background: #0D0F13; }
+    .btn-submit { width: 100%; padding: 11px; border-radius: 8px; border: none; background: linear-gradient(135deg, #C9963A, #E09030); color: #000; font-weight: 800; font-size: 13px; cursor: pointer; margin-top: 4px; }
+    .table-wrap { background: #12151B; border: 1px solid #1E2330; border-radius: 13px; overflow: hidden; margin-bottom: 24px; }
+    .table-head { padding: 14px 18px; border-bottom: 1px solid #1E2330; display: flex; justify-content: space-between; }
+    .table-head span { font-weight: 700; font-size: 13px; }
+    .t-cols-fac { display: grid; grid-template-columns: 1fr 1.2fr 1fr 0.8fr 1fr; padding: 10px 18px; border-bottom: 1px solid #1E2330; background: #0A0C0F; }
+    .t-cols-fac span { color: #5A5448; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .t-row { display: grid; grid-template-columns: 1fr 1.2fr 1fr 0.8fr 1fr; padding: 13px 18px; border-bottom: 1px solid #1E2330; align-items: center; transition: background 0.15s; font-size: 13px; }
+    .t-row:last-child { border-bottom: none; }
+    .t-row:hover { background: #1A1D24; }
+    .badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .badge.overdue  { background: rgba(224,80,74,0.15);  color: #E0504A; }
+    .badge.pending  { background: rgba(224,144,48,0.15); color: #E09030; }
+    .badge.upcoming { background: rgba(74,124,245,0.15); color: #4A7CF5; }
+    .badge.paid     { background: rgba(40,196,122,0.15); color: #28C47A; }
+    .btn-relance { padding: 5px 10px; border-radius: 7px; border: 1px solid rgba(138,92,245,0.4); background: rgba(138,92,245,0.12); color: #8A5CF5; font-size: 11px; font-weight: 700; cursor: pointer; }
+    .btn-relance:hover { background: rgba(138,92,245,0.25); }
+    .empty-state { padding: 40px 20px; text-align: center; color: #9A9080; font-size: 13px; }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: #12151B; border: 1px solid rgba(40,196,122,0.4); border-radius: 10px; padding: 12px 18px; color: #28C47A; font-weight: 700; font-size: 13px; display: none; z-index: 999; }
+    .toast.error { border-color: rgba(224,80,74,0.4); color: #E0504A; }
+    @media (max-width: 700px) {
       .kpis { grid-template-columns: 1fr; }
-      .main { padding: 20px 16px; }
+      .grid2 { grid-template-columns: 1fr; }
+      .t-cols-fac, .t-row { grid-template-columns: 1fr 1fr 1fr; }
+      .t-cols-fac span:nth-child(2), .t-row > div:nth-child(2),
+      .t-cols-fac span:nth-child(5), .t-row > div:nth-child(5) { display: none; }
+      .main { padding: 16px; }
     }
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="logo">
-      <div class="logo-icon">R</div>
-      <div class="logo-name">Recouvr</div>
+
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon">R</div>
+    <div class="logo-name">Recouvr</div>
+  </div>
+  <div class="topbar-right">
+    <div class="welcome">Bonjour, <strong>{{ user.name }}</strong> · {{ user.company }}</div>
+    <a href="/logout" style="text-decoration:none;"><button class="btn-logout">Déconnexion</button></a>
+  </div>
+</div>
+
+<div class="main">
+  <div class="page-title">Tableau de bord</div>
+  <div class="page-sub">Bienvenue {{ user.name }} — gérez vos recouvrements</div>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi">
+      <div class="icon">📋</div>
+      <div class="val" style="color:#C9963A;">{{ "{:,.0f}".format(total_due) }} FCFA</div>
+      <div class="lbl">Encours total</div>
     </div>
-    <div class="topbar-right">
-      <div class="welcome">Bonjour, <strong>{{ user.name }}</strong> · {{ user.company }}</div>
-      <a href="/logout" style="text-decoration:none;">
-        <button class="btn-logout">Déconnexion</button>
-      </a>
+    <div class="kpi">
+      <div class="icon">⚠️</div>
+      <div class="val" style="color:#E0504A;">{{ "{:,.0f}".format(total_retard) }} FCFA</div>
+      <div class="lbl">En retard</div>
+    </div>
+    <div class="kpi">
+      <div class="icon">✅</div>
+      <div class="val" style="color:#28C47A;">{{ "{:,.0f}".format(total_paid) }} FCFA</div>
+      <div class="lbl">Collecté</div>
     </div>
   </div>
 
-  <div class="main">
-    <div class="page-title">Tableau de bord</div>
-    <div class="page-sub">Bienvenue {{ user.name }} — voici l'état de vos recouvrements</div>
-
-    <div class="kpis">
-      <div class="kpi">
-        <div class="icon">📋</div>
-        <div class="val" style="color:#C9963A;">0 FCFA</div>
-        <div class="lbl">Encours total</div>
-      </div>
-      <div class="kpi">
-        <div class="icon">⚠️</div>
-        <div class="val" style="color:#E0504A;">0 FCFA</div>
-        <div class="lbl">En retard</div>
-      </div>
-      <div class="kpi">
-        <div class="icon">✅</div>
-        <div class="val" style="color:#28C47A;">0 FCFA</div>
-        <div class="lbl">Collecté ce mois</div>
-      </div>
+  <!-- Formulaires -->
+  <div class="grid2">
+    <!-- Ajouter débiteur -->
+    <div class="card">
+      <div class="card-head"><span>➕ Nouveau débiteur</span></div>
+      <form method="POST" action="/ajouter-debiteur" class="form-body">
+        <div><label>Nom complet</label><input type="text" name="name" placeholder="Jean Dupont" required/></div>
+        <div><label>Entreprise</label><input type="text" name="company" placeholder="Société XYZ" required/></div>
+        <div><label>Email</label><input type="email" name="email" placeholder="jean@societe.com" required/></div>
+        <div><label>Téléphone</label><input type="text" name="phone" placeholder="+225 07 XX XX XX"/></div>
+        <button type="submit" class="btn-submit">Ajouter le débiteur</button>
+      </form>
     </div>
 
-    <div class="empty-state">
-      <div class="empty-icon">📄</div>
-      <div class="empty-title">Aucune facture pour le moment</div>
-      <div class="empty-sub">Ajoutez votre première facture pour commencer<br>à suivre vos recouvrements.</div>
-      <a href="#" class="btn-add">+ Ajouter une facture</a>
+    <!-- Ajouter facture -->
+    <div class="card">
+      <div class="card-head"><span>🧾 Nouvelle facture</span></div>
+      <form method="POST" action="/ajouter-facture" class="form-body">
+        <div>
+          <label>Débiteur</label>
+          <select name="debiteur_id" required>
+            <option value="">-- Choisir un débiteur --</option>
+            {% for d in debiteurs %}
+            <option value="{{ d.id }}">{{ d.name }} — {{ d.company }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div><label>Montant (FCFA)</label><input type="number" name="amount" placeholder="500000" required/></div>
+        <div><label>Date d'échéance</label><input type="date" name="due_date" required/></div>
+        <button type="submit" class="btn-submit">Ajouter la facture</button>
+      </form>
     </div>
   </div>
+
+  <!-- Liste factures -->
+  <div class="table-wrap">
+    <div class="table-head">
+      <span>Factures</span>
+      <span style="color:#9A9080;font-size:12px;">{{ factures|length }} facture(s)</span>
+    </div>
+    {% if factures %}
+    <div class="t-cols-fac">
+      <span>Réf.</span><span>Débiteur</span><span>Montant</span><span>Statut</span><span>Action</span>
+    </div>
+    {% for f in factures %}
+    {% set deb = debiteurs | selectattr("id", "equalto", f.debiteur_id) | first %}
+    <div class="t-row">
+      <div style="font-weight:600;">{{ f.ref }}</div>
+      <div style="color:#9A9080;">{% if deb %}{{ deb.name }}{% endif %}</div>
+      <div style="color:#EDB96A;font-weight:700;">{{ "{:,.0f}".format(f.amount) }} FCFA</div>
+      <div><span class="badge {{ f.status }}">
+        {% if f.status == "overdue" %}{{ f.days_late }}j retard
+        {% elif f.status == "pending" %}En attente
+        {% elif f.status == "upcoming" %}À venir
+        {% else %}Payé ✓{% endif %}
+      </span></div>
+      <div>
+        {% if f.status != "paid" %}
+        <button class="btn-relance" onclick="envoyerRelance({{ f.id }}, this)">✦ Relancer</button>
+        {% else %}
+        <span style="color:#28C47A;font-size:12px;">✓ Soldé</span>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="empty-state">Aucune facture — ajoutez d'abord un débiteur puis une facture.</div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function envoyerRelance(factureId, btn) {
+  btn.disabled = true;
+  btn.textContent = "Envoi...";
+  fetch("/envoyer-relance/" + factureId, { method: "POST" })
+    .then(r => r.json())
+    .then(data => {
+      const toast = document.getElementById("toast");
+      if (data.success) {
+        toast.textContent = "✓ " + data.message;
+        toast.className = "toast";
+        btn.textContent = "✓ Envoyé";
+        btn.style.color = "#28C47A";
+      } else {
+        toast.textContent = "⚠ " + data.error;
+        toast.className = "toast error";
+        btn.disabled = false;
+        btn.textContent = "✦ Relancer";
+      }
+      toast.style.display = "block";
+      setTimeout(() => toast.style.display = "none", 4000);
+    });
+}
+</script>
 </body>
 </html>

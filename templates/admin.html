@@ -7,162 +7,37 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #07080A; font-family: 'Segoe UI', sans-serif; color: #E8E2D4; min-height: 100vh; display: flex; }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 210px; background: #0D0F13; border-right: 1px solid #1E2330;
-      display: flex; flex-direction: column; min-height: 100vh; flex-shrink: 0;
-      position: sticky; top: 0; height: 100vh;
-    }
-    .sidebar-logo {
-      padding: 22px 18px; border-bottom: 1px solid #1E2330;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .logo-icon {
-      width: 34px; height: 34px; border-radius: 9px;
-      background: linear-gradient(135deg, #C9963A, #E09030);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; color: #000; font-size: 16px; flex-shrink: 0;
-    }
+    .sidebar { width: 210px; background: #0D0F13; border-right: 1px solid #1E2330; display: flex; flex-direction: column; min-height: 100vh; flex-shrink: 0; position: sticky; top: 0; height: 100vh; }
+    .sidebar-logo { padding: 22px 18px; border-bottom: 1px solid #1E2330; display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, #C9963A, #E09030); display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 16px; flex-shrink: 0; }
     .logo-name { font-size: 15px; font-weight: 800; color: #EDB96A; }
     .logo-sub  { font-size: 10px; color: #5A5448; }
-
     nav { flex: 1; padding: 12px 10px; }
-    .nav-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; border-radius: 10px; margin-bottom: 2px;
-      color: #9A9080; font-size: 13px; font-weight: 500; cursor: pointer;
-      border: none; background: none; width: 100%; text-align: left;
-      transition: all 0.15s; border-left: 2px solid transparent;
-    }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; margin-bottom: 2px; color: #9A9080; font-size: 13px; font-weight: 500; cursor: pointer; border: none; background: none; width: 100%; text-align: left; transition: all 0.15s; border-left: 2px solid transparent; }
     .nav-item:hover  { background: #1A1D24; color: #E8E2D4; }
     .nav-item.active { background: rgba(201,150,58,0.12); color: #EDB96A; font-weight: 700; border-left-color: #C9963A; }
-    .nav-icon { font-size: 15px; }
-
-    .sidebar-footer {
-      padding: 14px 18px; border-top: 1px solid #1E2330;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .avatar {
-      width: 32px; height: 32px; border-radius: 8px;
-      background: linear-gradient(135deg, rgba(201,150,58,0.3), rgba(201,150,58,0.15));
-      border: 1.5px solid rgba(201,150,58,0.4);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 800; color: #C9963A;
-    }
-    .footer-name { font-size: 12px; font-weight: 700; color: #E8E2D4; }
+    .sidebar-footer { padding: 14px 18px; border-top: 1px solid #1E2330; display: flex; align-items: center; gap: 10px; }
+    .avatar { width: 32px; height: 32px; border-radius: 8px; background: rgba(201,150,58,0.2); border: 1.5px solid rgba(201,150,58,0.4); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #C9963A; }
+    .footer-name { font-size: 12px; font-weight: 700; }
     .footer-role { font-size: 10px; color: #5A5448; }
-
-    /* MAIN */
     .main { flex: 1; overflow: auto; }
     .content { padding: 30px 28px; max-width: 960px; }
-
     .page-title { font-size: 22px; font-weight: 900; color: #EDB96A; margin-bottom: 4px; letter-spacing: -0.03em; }
-    .page-sub   { color: #9A9080; font-size: 13px; margin-bottom: 28px; }
-
-    /* SECTIONS */
+    .page-sub { color: #9A9080; font-size: 13px; margin-bottom: 28px; }
     .section { display: none; }
     .section.active { display: block; }
-
-    /* KPIS */
     .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-    .kpi {
-      background: #12151B; border: 1px solid #1E2330; border-radius: 13px; padding: 18px;
-      position: relative; overflow: hidden;
-    }
-    .kpi::before {
-      content: ''; position: absolute; top: -15px; right: -15px;
-      width: 60px; height: 60px; border-radius: 50%; opacity: 0.08;
-    }
+    .kpi { background: #12151B; border: 1px solid #1E2330; border-radius: 13px; padding: 18px; }
     .kpi .icon { font-size: 20px; margin-bottom: 10px; }
     .kpi .val  { font-size: 20px; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 3px; }
     .kpi .lbl  { color: #9A9080; font-size: 11px; font-weight: 600; }
-    .kpi .delta { font-size: 11px; font-weight: 700; margin-top: 4px; }
-
-    /* TABLE */
-    .table-wrap { background: #12151B; border: 1px solid #1E2330; border-radius: 14px; overflow: hidden; margin-bottom: 24px; }
-    .table-head-bar {
-      padding: 14px 20px; border-bottom: 1px solid #1E2330; background: #0D0F13;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .table-head-bar span { font-weight: 700; font-size: 13px; }
-    .table-cols {
-      display: grid; padding: 11px 20px;
-      border-bottom: 1px solid #1E2330; background: #0A0C0F;
-    }
-    .table-cols span { color: #5A5448; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
-    .table-row {
-      display: grid; padding: 14px 20px;
-      border-bottom: 1px solid #1E2330; align-items: center;
-      transition: background 0.15s;
-    }
-    .table-row:last-child { border-bottom: none; }
-    .table-row:hover { background: #1A1D24; }
-
-    /* BADGES */
-    .badge {
-      display: inline-block; padding: 3px 9px; border-radius: 20px;
-      font-size: 11px; font-weight: 700; border: 1px solid transparent;
-    }
-    .badge.green  { background: rgba(40,196,122,0.15);  color: #28C47A;  border-color: rgba(40,196,122,0.25); }
-    .badge.red    { background: rgba(224,80,74,0.15);   color: #E0504A;  border-color: rgba(224,80,74,0.25); }
-    .badge.amber  { background: rgba(224,144,48,0.15);  color: #E09030;  border-color: rgba(224,144,48,0.25); }
-    .badge.blue   { background: rgba(74,124,245,0.15);  color: #4A7CF5;  border-color: rgba(74,124,245,0.25); }
-    .badge.purple { background: rgba(138,92,245,0.15);  color: #8A5CF5;  border-color: rgba(138,92,245,0.25); }
-    .badge.gold   { background: rgba(201,150,58,0.15);  color: #C9963A;  border-color: rgba(201,150,58,0.25); }
-    .badge.dim    { background: rgba(90,84,72,0.2);     color: #9A9080;  border-color: rgba(90,84,72,0.3); }
-
-    /* PROGRESS BAR */
-    .progress-wrap { width: 60px; height: 4px; background: #1E2330; border-radius: 2px; }
-    .progress-bar  { height: 100%; border-radius: 2px; }
-
-    /* RULES */
-    .rule-card {
-      background: #12151B; border: 1px solid #1E2330; border-radius: 13px;
-      padding: 18px 20px; margin-bottom: 12px; display: flex;
-      justify-content: space-between; align-items: center;
-    }
-    .rule-left { display: flex; align-items: center; gap: 14px; }
-    .rule-day {
-      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.3);
-      border-radius: 10px; padding: 8px 14px; color: #EDB96A; font-weight: 900; font-size: 16px;
-    }
-    .rule-stats { display: flex; gap: 16px; margin-top: 8px; }
-    .rule-stat  { font-size: 11px; color: #9A9080; }
-    .rule-stat strong { color: #E8E2D4; }
-
-    /* TOGGLE */
-    .toggle {
-      width: 44px; height: 24px; border-radius: 12px; border: none; cursor: pointer;
-      position: relative; transition: background 0.3s; flex-shrink: 0;
-    }
-    .toggle .knob {
-      position: absolute; top: 3px; width: 18px; height: 18px;
-      border-radius: 50%; background: #fff; transition: left 0.3s;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    }
-    .toggle.on  { background: #C9963A; }
-    .toggle.off { background: #2C3347; }
-    .toggle.on  .knob { left: 23px; }
-    .toggle.off .knob { left: 3px; }
-
-    /* EMAIL LOG */
-    .log-cols  { grid-template-columns: 2fr 1.4fr 1.2fr 0.9fr 0.8fr; }
-    .user-cols { grid-template-columns: 2fr 1.2fr 1fr 1fr 0.8fr; }
-    .client-cols { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; }
-
-    /* BTN */
-    .btn-sm {
-      padding: 6px 12px; border-radius: 8px; border: none;
-      font-size: 11px; font-weight: 700; cursor: pointer;
-    }
-
-    .back-link {
-      display: inline-block; margin-bottom: 20px; color: #9A9080;
-      font-size: 13px; text-decoration: none;
-    }
+    .empty-state { background: #12151B; border: 1px dashed #2C3347; border-radius: 14px; padding: 60px 20px; text-align: center; margin-bottom: 20px; }
+    .empty-icon { font-size: 36px; margin-bottom: 14px; }
+    .empty-title { color: #E8E2D4; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .empty-sub { color: #9A9080; font-size: 13px; line-height: 1.6; }
+    .btn-add { display: inline-block; margin-top: 18px; padding: 10px 22px; border-radius: 10px; border: none; background: linear-gradient(135deg, #C9963A, #E09030); color: #000; font-weight: 800; font-size: 13px; cursor: pointer; }
+    .back-link { display: inline-block; margin-bottom: 20px; color: #9A9080; font-size: 13px; text-decoration: none; }
     .back-link:hover { color: #EDB96A; }
-
     @media (max-width: 700px) {
       .sidebar { display: none; }
       .kpis { grid-template-columns: 1fr 1fr; }
@@ -170,8 +45,6 @@
   </style>
 </head>
 <body>
-
-  <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="sidebar-logo">
       <div class="logo-icon">R</div>
@@ -180,214 +53,127 @@
         <div class="logo-sub">Admin Console</div>
       </div>
     </div>
-
     <nav>
       <button class="nav-item active" onclick="showSection('overview', this)">
-        <span class="nav-icon">◈</span> Vue globale
+        <span>◈</span> Vue globale
       </button>
       <button class="nav-item" onclick="showSection('users', this)">
-        <span class="nav-icon">👥</span> Utilisateurs
+        <span>👥</span> Utilisateurs
       </button>
       <button class="nav-item" onclick="showSection('clients', this)">
-        <span class="nav-icon">🏢</span> Clients
+        <span>🏢</span> Clients
       </button>
       <button class="nav-item" onclick="showSection('rules', this)">
-        <span class="nav-icon">⚡</span> Règles IA
+        <span>⚡</span> Règles IA
       </button>
       <button class="nav-item" onclick="showSection('emaillog', this)">
-        <span class="nav-icon">📨</span> Emails envoyés
+        <span>📨</span> Emails envoyés
       </button>
     </nav>
-
     <div class="sidebar-footer">
-      <div class="avatar">KA</div>
+      <div class="avatar">A</div>
       <div>
-        <div class="footer-name">Koné Aminata</div>
+        <div class="footer-name">Admin</div>
         <div class="footer-role">Super Admin</div>
       </div>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
     <div class="content">
-
       <a href="/" class="back-link">← Retour accueil</a>
 
-      <!-- ══ VUE GLOBALE ══ -->
+      <!-- VUE GLOBALE -->
       <div id="overview" class="section active">
         <div class="page-title">Vue d'ensemble</div>
-        <div class="page-sub">Tableau de bord administrateur · Recouvr Africa</div>
-
+        <div class="page-sub">Tableau de bord administrateur</div>
         <div class="kpis">
           <div class="kpi">
             <div class="icon">👥</div>
-            <div class="val" style="color:#4A7CF5;">4/5</div>
+            <div class="val" style="color:#4A7CF5;">0</div>
             <div class="lbl">Utilisateurs actifs</div>
-            <div class="delta" style="color:#28C47A;">+12% ce mois</div>
           </div>
           <div class="kpi">
             <div class="icon">🏢</div>
-            <div class="val" style="color:#2ABFAA;">6</div>
+            <div class="val" style="color:#2ABFAA;">0</div>
             <div class="lbl">Clients gérés</div>
-            <div class="delta" style="color:#28C47A;">+8% ce mois</div>
           </div>
           <div class="kpi">
             <div class="icon">📨</div>
-            <div class="val" style="color:#8A5CF5;">89</div>
+            <div class="val" style="color:#8A5CF5;">0</div>
             <div class="lbl">Emails IA envoyés</div>
-            <div class="delta" style="color:#28C47A;">+24% ce mois</div>
           </div>
           <div class="kpi">
             <div class="icon">🎯</div>
-            <div class="val" style="color:#C9963A;">72%</div>
+            <div class="val" style="color:#C9963A;">0%</div>
             <div class="lbl">Taux recouvrement</div>
-            <div class="delta" style="color:#28C47A;">+5% ce mois</div>
           </div>
         </div>
-
-        <div class="kpis" style="grid-template-columns: 1fr 1fr;">
-          <div class="kpi">
-            <div class="icon">💰</div>
-            <div class="val" style="color:#E09030;">56.6M FCFA</div>
-            <div class="lbl">Total facturé (cumulé)</div>
-          </div>
-          <div class="kpi">
-            <div class="icon">✅</div>
-            <div class="val" style="color:#28C47A;">41.9M FCFA</div>
-            <div class="lbl">Total collecté (cumulé)</div>
-          </div>
-        </div>
-
-        <!-- Derniers emails -->
-        <div class="table-wrap">
-          <div class="table-head-bar">
-            <span>Derniers emails IA envoyés</span>
-            <button class="btn-sm" style="background:none;border:none;color:#C9963A;cursor:pointer;" onclick="showSection('emaillog', document.querySelector('.nav-item:nth-child(5)'))">Voir tout →</button>
-          </div>
-          <div class="table-cols log-cols">
-            <span>Client</span><span>Règle</span><span>Ton</span><span>Montant</span><span>Statut</span>
-          </div>
-          <div class="table-row log-cols">
-            <div><div style="font-weight:600;font-size:13px;">Groupe Bolloré CI</div><div style="color:#9A9080;font-size:11px;">2024-05-19 09:14</div></div>
-            <div style="font-size:12px;">Relance J+7</div>
-            <span class="badge amber">Ferme</span>
-            <div style="color:#EDB96A;font-size:12px;font-weight:700;">4.5M FCFA</div>
-            <span class="badge blue">Ouvert</span>
-          </div>
-          <div class="table-row log-cols">
-            <div><div style="font-weight:600;font-size:13px;">Orange Business Mali</div><div style="color:#9A9080;font-size:11px;">2024-05-08 11:30</div></div>
-            <div style="font-size:12px;">Mise en demeure J+15</div>
-            <span class="badge red">Urgent</span>
-            <div style="color:#EDB96A;font-size:12px;font-weight:700;">3.1M FCFA</div>
-            <span class="badge green">✓ Payé</span>
-          </div>
-          <div class="table-row log-cols">
-            <div><div style="font-weight:600;font-size:13px;">CFAO Motors Dakar</div><div style="color:#9A9080;font-size:11px;">2024-05-22 08:00</div></div>
-            <div style="font-size:12px;">Rappel J+3</div>
-            <span class="badge green">Courtois</span>
-            <div style="color:#EDB96A;font-size:12px;font-weight:700;">1.8M FCFA</div>
-            <span class="badge dim">Envoyé</span>
-          </div>
+        <div class="empty-state">
+          <div class="empty-icon">📊</div>
+          <div class="empty-title">Aucune donnée disponible</div>
+          <div class="empty-sub">Les statistiques apparaîtront ici<br>une fois les premiers utilisateurs et clients ajoutés.</div>
         </div>
       </div>
 
-      <!-- ══ UTILISATEURS ══ -->
+      <!-- UTILISATEURS -->
       <div id="users" class="section">
         <div class="page-title">Utilisateurs</div>
-        <div class="page-sub">4 actifs · 5 total</div>
-
-        <div class="table-wrap">
-          <div class="table-head-bar">
-            <span>Agents & Managers</span>
-            <button class="btn-sm" style="background:rgba(201,150,58,0.15);border:1px solid rgba(201,150,58,0.3);color:#EDB96A;">+ Inviter</button>
-          </div>
-          <div class="table-cols user-cols">
-            <span>Agent</span><span>Rôle</span><span>Factures</span><span>Collecté</span><span>Statut</span>
-          </div>
-          <div class="table-row user-cols">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div class="avatar" style="width:34px;height:34px;font-size:12px;">KA</div>
-              <div><div style="font-weight:700;font-size:13px;">Koné Aminata</div><div style="color:#9A9080;font-size:11px;">a.kone@recouvr.io</div></div>
-            </div>
-            <span class="badge gold">Admin</span>
-            <div style="font-weight:600;font-size:13px;">24</div>
-            <div style="color:#28C47A;font-size:12px;font-weight:700;">18.2M FCFA</div>
-            <span class="badge green">Actif</span>
-          </div>
-          <div class="table-row user-cols">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div class="avatar" style="width:34px;height:34px;font-size:12px;border-color:rgba(42,191,170,0.4);color:#2ABFAA;background:rgba(42,191,170,0.15);">DM</div>
-              <div><div style="font-weight:700;font-size:13px;">Diallo Moussa</div><div style="color:#9A9080;font-size:11px;">m.diallo@recouvr.io</div></div>
-            </div>
-            <span class="badge blue">Manager</span>
-            <div style="font-weight:600;font-size:13px;">18</div>
-            <div style="color:#28C47A;font-size:12px;font-weight:700;">9.4M FCFA</div>
-            <span class="badge green">Actif</span>
-          </div>
-          <div class="table-row user-cols">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div class="avatar" style="width:34px;height:34px;font-size:12px;border-color:rgba(74,124,245,0.4);color:#4A7CF5;background:rgba(74,124,245,0.15);">AK</div>
-              <div><div style="font-weight:700;font-size:13px;">Asante Kwame</div><div style="color:#9A9080;font-size:11px;">k.asante@recouvr.io</div></div>
-            </div>
-            <span class="badge dim">Agent</span>
-            <div style="font-weight:600;font-size:13px;">11</div>
-            <div style="color:#28C47A;font-size:12px;font-weight:700;">5.1M FCFA</div>
-            <span class="badge green">Actif</span>
-          </div>
-          <div class="table-row user-cols">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div class="avatar" style="width:34px;height:34px;font-size:12px;border-color:rgba(90,84,72,0.4);color:#9A9080;background:rgba(90,84,72,0.15);">TF</div>
-              <div><div style="font-weight:700;font-size:13px;">Traoré Fatima</div><div style="color:#9A9080;font-size:11px;">f.traore@recouvr.io</div></div>
-            </div>
-            <span class="badge dim">Agent</span>
-            <div style="font-weight:600;font-size:13px;">6</div>
-            <div style="color:#9A9080;font-size:12px;font-weight:700;">1.8M FCFA</div>
-            <span class="badge red">Inactif</span>
-          </div>
-          <div class="table-row user-cols">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div class="avatar" style="width:34px;height:34px;font-size:12px;border-color:rgba(42,191,170,0.4);color:#2ABFAA;background:rgba(42,191,170,0.15);">ME</div>
-              <div><div style="font-weight:700;font-size:13px;">Mensah Esi</div><div style="color:#9A9080;font-size:11px;">e.mensah@recouvr.io</div></div>
-            </div>
-            <span class="badge blue">Manager</span>
-            <div style="font-weight:600;font-size:13px;">14</div>
-            <div style="color:#28C47A;font-size:12px;font-weight:700;">7.6M FCFA</div>
-            <span class="badge green">Actif</span>
-          </div>
+        <div class="page-sub">Gérez vos agents et managers</div>
+        <div class="empty-state">
+          <div class="empty-icon">👥</div>
+          <div class="empty-title">Aucun utilisateur</div>
+          <div class="empty-sub">Invitez vos premiers agents et managers<br>pour commencer à gérer les recouvrements.</div>
+          <button class="btn-add">+ Inviter un agent</button>
         </div>
       </div>
 
-      <!-- ══ CLIENTS ══ -->
+      <!-- CLIENTS -->
       <div id="clients" class="section">
         <div class="page-title">Clients</div>
-        <div class="page-sub">6 entreprises · 1 à haut risque</div>
+        <div class="page-sub">Gérez vos entreprises clientes</div>
+        <div class="empty-state">
+          <div class="empty-icon">🏢</div>
+          <div class="empty-title">Aucun client</div>
+          <div class="empty-sub">Ajoutez vos premiers clients pour<br>commencer à suivre leurs factures.</div>
+          <button class="btn-add">+ Ajouter un client</button>
+        </div>
+      </div>
 
-        <div class="table-wrap">
-          <div class="table-cols client-cols" style="padding:11px 20px;background:#0A0C0F;border-bottom:1px solid #1E2330;">
-            <span style="color:#5A5448;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Client</span>
-            <span style="color:#5A5448;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Facturé</span>
-            <span style="color:#5A5448;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Collecté</span>
-            <span style="color:#5A5448;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Risque</span>
-            <span style="color:#5A5448;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Tier</span>
-          </div>
-          <!-- Rows -->
-          <div class="table-row client-cols">
-            <div><div style="font-weight:700;font-size:13px;">🇨🇮 Groupe Bolloré CI</div><div style="color:#9A9080;font-size:11px;">compta@bollore-ci.com</div></div>
-            <div style="font-size:12px;font-weight:600;">12.5M FCFA</div>
-            <div><div style="color:#28C47A;font-size:12px;font-weight:700;">8M FCFA</div><div class="progress-wrap" style="margin-top:5px;"><div class="progress-bar" style="width:64%;background:#E09030;"></div></div></div>
-            <div style="display:flex;align-items:center;gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:#E09030;display:inline-block;"></span><span style="color:#E09030;font-size:12px;">Medium</span></div>
-            <span class="badge gold">VIP</span>
-          </div>
-          <div class="table-row client-cols">
-            <div><div style="font-weight:700;font-size:13px;">🇸🇳 CFAO Motors Dakar</div><div style="color:#9A9080;font-size:11px;">finance@cfao-dakar.sn</div></div>
-            <div style="font-size:12px;font-weight:600;">4.2M FCFA</div>
-            <div><div style="color:#28C47A;font-size:12px;font-weight:700;">2.4M FCFA</div><div class="progress-wrap" style="margin-top:5px;"><div class="progress-bar" style="width:57%;background:#E09030;"></div></div></div>
-            <div style="display:flex;align-items:center;gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:#28C47A;display:inline-block;"></span><span style="color:#28C47A;font-size:12px;">Low</span></div>
-            <span class="badge dim">Standard</span>
-          </div>
-          <div class="table-row client-cols">
-            <div><div style="font-weight:700;font-size:13px;">🇬🇭 MTN Business Ghana</div><div style="color:#9A9080;font-size:11px;">accounts@mtnbiz.gh</div></div>
-            <div style="font-size:12px;font-weight:600;">21M FCFA</div>
-            <div><div style="color:#28C47A;font-size:12px;font-weight:700;">21M FCFA</div><div class="progress-wrap" style="margin-top:5px;"><div class="progress-bar" style="width:100%;background:#28C47A;"></div></div></div>
-            <div style="display:flex;align-items:center;gap:
+      <!-- RÈGLES IA -->
+      <div id="rules" class="section">
+        <div class="page-title">Règles automatiques IA</div>
+        <div class="page-sub">Les emails sont générés par Claude et envoyés automatiquement</div>
+        <div class="empty-state">
+          <div class="empty-icon">⚡</div>
+          <div class="empty-title">Aucune règle configurée</div>
+          <div class="empty-sub">Créez des règles pour envoyer automatiquement<br>des emails de relance selon les jours de retard.</div>
+          <button class="btn-add">+ Créer une règle</button>
+        </div>
+      </div>
+
+      <!-- EMAIL LOG -->
+      <div id="emaillog" class="section">
+        <div class="page-title">Journal des emails IA</div>
+        <div class="page-sub">Historique de tous les emails envoyés</div>
+        <div class="empty-state">
+          <div class="empty-icon">📨</div>
+          <div class="empty-title">Aucun email envoyé</div>
+          <div class="empty-sub">L'historique des emails apparaîtra ici<br>une fois les règles automatiques activées.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function showSection(id, btn) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+  </script>
+</body>
+  </html>
+  
